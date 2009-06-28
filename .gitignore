@@ -1,0 +1,6 @@
+*~
+*.pyc
+semantic.cache
+\#*
+.\#*
+.DS_Store
