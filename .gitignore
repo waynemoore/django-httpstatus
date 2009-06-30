@@ -8,6 +8,7 @@ downloads
 eggs
 parts
 src/*.egg-info
+build
 *~
 semantic.cache
 \#*
