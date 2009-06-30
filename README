@@ -1,0 +1,23 @@
+What is it?
+Django has a nice build in exception, Http404, which you can throw
+from anywhere in your view code and it'll return a 404 error to the
+user agent.  Unfortunately, none of the other error codes have been
+given the same treatment.
+
+How do I use it?
+1. Add the middleware to your settings.py:
+
+    MIDDLEWARE_CLASSES = (
+        ...
+        'httperrors.middleware.HttpStatusErrorsMiddleware',
+        ...
+    )
+
+2. Import the exceptions and use them:
+
+    from httperrors import Http405
+
+    def foo(request):
+        if request.POST:
+	        raise Http405(['GET'])  # this method only allows post methods
+
