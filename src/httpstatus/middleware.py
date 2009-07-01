@@ -1,5 +1,5 @@
 from django.http import HttpResponseNotAllowed
-from httperrors import *
+from httpstatus import *
 
 class HttpStatusErrorsMiddleware:
     def process_exception(self, request, exception):

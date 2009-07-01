@@ -1,10 +1,15 @@
 What is it?
+===========
 Django has a nice build in exception, Http404, which you can throw
 from anywhere in your view code and it'll return a 404 error to the
 user agent.  Unfortunately, none of the other error codes have been
 given the same treatment.
 
+It also includes some decorators for use with requests to keep some
+of your code me DRY.
+
 How do I use it?
+================
 1. Add the middleware to your settings.py:
 
     MIDDLEWARE_CLASSES = (
@@ -15,9 +20,56 @@ How do I use it?
 
 2. Import the exceptions and use them:
 
-    from httperrors import Http405
+    from httpstatus import Http405
 
     def foo(request):
         if request.POST:
 	        raise Http405(['GET'])  # this method only allows post methods
 
+
+3. Or use some decorators:
+
+    from httpstatus.decorators import postonly
+
+    @postonly
+    foo(request):
+		# handle post request
+
+
+But WHY!?
+=========
+I found myself violating DRY too often when writing REST interfaces:
+
+    # this method only accepts get methods
+    def foo(request):
+		if request.POST:
+		    return HttpResponseNotAllowed(['GET'])
+
+I wanted a clean way to indicate what my views could do, and allow
+the code within the view function to focus on handling the request:
+
+    @getonly
+    def foo(request):
+		# handle the get request
+
+It's very simple thing, but I use it often enough that it warranted
+a reusable app.
+
+
+Exceptions
+==========
+module: httpstatus.__init__
+classes:
+    HTTPStatusException       Base class for HTTP exceptions
+	Http301                   HttpResponsePermanentRedirect
+	Http302                   HttpResponseRedirect
+	Http400                   HttpResponseBadRequest
+    Http403                   HttpResponseForbidden
+    Http405                   HttpResponseNotAllowed
+    Http410                   HttpResponseGone
+
+
+Decorators
+==========
+module: httpstatus.decorators
+decorators: postonly, getonly
