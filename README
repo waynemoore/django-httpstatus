@@ -32,7 +32,7 @@ How do I use it?
     from httpstatus.decorators import postonly
 
     @postonly
-    foo(request):
+    def foo(request):
 		# handle post request
 
 
