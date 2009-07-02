@@ -2,11 +2,11 @@ What is it?
 ===========
 Django has a nice build in exception, Http404, which you can throw
 from anywhere in your view code and it'll return a 404 error to the
-user agent.  Unfortunately, none of the other error codes have been
+user-agent.  Unfortunately, none of the other error codes have been
 given the same treatment.
 
 It also includes some decorators for use with requests to keep some
-of your code me DRY.
+of your code more DRY.
 
 How do I use it?
 ================
@@ -14,7 +14,7 @@ How do I use it?
 
     MIDDLEWARE_CLASSES = (
         ...
-        'httperrors.middleware.HttpStatusErrorsMiddleware',
+        'httpstatus.middleware.HttpStatusErrorsMiddleware',
         ...
     )
 
@@ -52,7 +52,7 @@ the code within the view function to focus on handling the request:
     def foo(request):
 		# handle the get request
 
-It's very simple thing, but I use it often enough that it warranted
+It's a very simple thing, but I use it often enough that it warranted
 a reusable app.
 
 
@@ -61,9 +61,9 @@ Exceptions
 module: httpstatus.__init__
 classes:
     HTTPStatusException       Base class for HTTP exceptions
-	Http301                   HttpResponsePermanentRedirect
-	Http302                   HttpResponseRedirect
-	Http400                   HttpResponseBadRequest
+    Http301                   HttpResponsePermanentRedirect
+    Http302                   HttpResponseRedirect
+    Http400                   HttpResponseBadRequest
     Http403                   HttpResponseForbidden
     Http405                   HttpResponseNotAllowed
     Http410                   HttpResponseGone

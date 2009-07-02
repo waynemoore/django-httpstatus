@@ -83,9 +83,9 @@ class DecoratorTests(TestCase):
         req.POST = True
         @postonly
         def foo(request):
-            request.handled = True
-        foo(req)
-        self.failUnless(req.handled)
+            return HttpResponse('handled')
+        response = foo(req)
+        self.assertEquals(response.content, 'handled')
 
     def test_getonly(self):
         req = MockRequest()
@@ -105,9 +105,9 @@ class DecoratorTests(TestCase):
         req.GET = True
         @getonly
         def foo(request):
-            request.handled = True
-        foo(req)
-        self.failUnless(req.handled)
+            return HttpResponse('handled')
+        response = foo(req)
+        self.assertEquals(response.content, 'handled')
 
 
 class TestMiddleware(TestCase):
